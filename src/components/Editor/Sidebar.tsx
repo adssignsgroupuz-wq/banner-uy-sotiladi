@@ -20,8 +20,8 @@ export const Sidebar: React.FC = () => {
     const handleExportPdf = async () => {
         const svg = document.getElementById('banner-svg') as unknown as SVGSVGElement;
         if (svg) {
-            const totalW = size.widthMm + size.bleedMm * 2;
-            const totalH = size.heightMm + size.bleedMm * 2;
+            const totalW = (Number(size.widthMm) || 0) + size.bleedMm * 2;
+            const totalH = (Number(size.heightMm) || 0) + size.bleedMm * 2;
             const filename = `${totalW}x${totalH}mm.pdf`;
             await exportToPdf(svg, totalW, totalH, filename);
         }
@@ -39,7 +39,7 @@ export const Sidebar: React.FC = () => {
                         <input 
                             type="number" 
                             value={size.widthMm} 
-                            onChange={(e) => setSize(Number(e.target.value), size.heightMm)} 
+                            onChange={(e) => setSize(e.target.value === '' ? '' : Number(e.target.value), size.heightMm)} 
                         />
                     </div>
                     <div className="form-group">
@@ -47,7 +47,7 @@ export const Sidebar: React.FC = () => {
                         <input 
                             type="number" 
                             value={size.heightMm} 
-                            onChange={(e) => setSize(size.widthMm, Number(e.target.value))} 
+                            onChange={(e) => setSize(size.widthMm, e.target.value === '' ? '' : Number(e.target.value))} 
                         />
                     </div>
                 </div>
@@ -155,7 +155,7 @@ export const Sidebar: React.FC = () => {
                             type="number" 
                             min="0"
                             value={eyelets.horizontal} 
-                            onChange={(e) => setEyelets(Number(e.target.value), eyelets.vertical)} 
+                            onChange={(e) => setEyelets(e.target.value === '' ? '' : Number(e.target.value), eyelets.vertical)} 
                             placeholder="M: 5"
                         />
                     </div>
@@ -165,7 +165,7 @@ export const Sidebar: React.FC = () => {
                             type="number" 
                             min="0"
                             value={eyelets.vertical} 
-                            onChange={(e) => setEyelets(eyelets.horizontal, Number(e.target.value))} 
+                            onChange={(e) => setEyelets(eyelets.horizontal, e.target.value === '' ? '' : Number(e.target.value))} 
                             placeholder="M: 3"
                         />
                     </div>
@@ -179,7 +179,7 @@ export const Sidebar: React.FC = () => {
             </div>
             
             <p className="help-text">
-                * PDF fayl CMYK chop etish uskunalari uchun maxsus "Bleed" (5 sm kesish qismi) va vektor formatda tayyorlanadi.
+                * PDF fayl CMYK maxsus vektor formatda tayyorlanadi.
             </p>
         </aside>
     );

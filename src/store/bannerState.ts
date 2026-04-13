@@ -5,8 +5,8 @@ export type TemplateMode = 'yellow-black' | 'red-white' | 'blue-white';
 export type FontFamily = 'roboto' | 'impact';
 
 export interface BannerState {
-    size: { widthMm: number; heightMm: number; bleedMm: number };
-    eyelets: { horizontal: number; vertical: number };
+    size: { widthMm: number | ''; heightMm: number | ''; bleedMm: number };
+    eyelets: { horizontal: number | ''; vertical: number | '' };
     template: TemplateMode;
     fontFamily: FontFamily;
     mainTitle: string;
@@ -16,8 +16,8 @@ export interface BannerState {
     floor: string;
     customText: string;
 
-    setEyelets: (horizontal: number, vertical: number) => void;
-    setSize: (widthMm: number, heightMm: number) => void;
+    setEyelets: (horizontal: number | '', vertical: number | '') => void;
+    setSize: (widthMm: number | '', heightMm: number | '') => void;
     setTemplate: (template: TemplateMode) => void;
     setFontFamily: (font: FontFamily) => void;
     setMainTitle: (title: string) => void;
@@ -29,7 +29,7 @@ export interface BannerState {
 }
 
 export const useBannerStore = create<BannerState>((set) => ({
-    size: { widthMm: 1200, heightMm: 800, bleedMm: 50 },
+    size: { widthMm: 1200, heightMm: 800, bleedMm: 0 },
     eyelets: { horizontal: 0, vertical: 0 },
     template: 'yellow-black',
     fontFamily: 'impact',

@@ -7,8 +7,8 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
     const font = getLoadedFont();
 
     // Calculate dimensions
-    const totalW = size.widthMm + size.bleedMm * 2;
-    const totalH = size.heightMm + size.bleedMm * 2;
+    const totalW = (Number(size.widthMm) || 0) + size.bleedMm * 2;
+    const totalH = (Number(size.heightMm) || 0) + size.bleedMm * 2;
     const cx = totalW / 2;
 
     const getColors = () => {
@@ -50,16 +50,16 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
         const gap = 30; // Chetidan 30mm ichkarida!
         
         const safeL = size.bleedMm + gap;
-        const safeR = size.bleedMm + size.widthMm - gap;
+        const safeR = size.bleedMm + (Number(size.widthMm) || 0) - gap;
         const safeT = size.bleedMm + gap;
-        const safeB = size.bleedMm + size.heightMm - gap;
+        const safeB = size.bleedMm + (Number(size.heightMm) || 0) - gap;
 
         const marks: {x: number, y: number}[] = [];
 
         // Yuzaga kelishi mumkin bo'lgan takroriy o'qiyotgan burchaklarni g'alvoga aylanmasligi u-n Set ham ishlatsak bo'lardi,
         // Lekin SVGda ustma-ust chizish muammo emas.
-        if (eyelets.horizontal > 0) {
-            const hCount = eyelets.horizontal;
+        const hCount = Number(eyelets.horizontal) || 0;
+        if (hCount > 0) {
             if (hCount === 1) {
                 marks.push({ x: cx, y: safeT });
                 marks.push({ x: cx, y: safeB });
@@ -72,8 +72,8 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
             }
         }
 
-        if (eyelets.vertical > 0) {
-            const vCount = eyelets.vertical;
+        const vCount = Number(eyelets.vertical) || 0;
+        if (vCount > 0) {
             if (vCount === 1) {
                 marks.push({ x: safeL, y: totalH / 2 });
                 marks.push({ x: safeR, y: totalH / 2 });
@@ -98,7 +98,7 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
         if (totalLines === 0) return null;
 
         const targetW = totalW * 0.85;
-        const maxTotalHeight = size.heightMm * 0.75; 
+        const maxTotalHeight = (Number(size.heightMm) || 0) * 0.75; 
 
         // 1. Dastlab barcha qatorlarning "targetW" kenglikka yoyuvchi mukammal font o'lchamini topamiz.
         let rawMeasurements = lines.map(line => {
@@ -142,7 +142,7 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
              return { ...line, size: 10, bbox: { y1: 0, y2: 0, x1: 0, x2: 0 }, visualHeight: 0 };
         });
 
-        const remainingSpace = size.heightMm - totalVisualHeight;
+        const remainingSpace = (Number(size.heightMm) || 0) - totalVisualHeight;
         const gap = remainingSpace / (totalLines + 1);
 
         let currentY = size.bleedMm;
@@ -185,16 +185,18 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
                     {renderEyelets()}
 
                     {/* Print Bleed Marks - Endi Hairline (1px yoki uskunaga xos nozik qalinlik) */}
-                    <rect 
-                        x={size.bleedMm} 
-                        y={size.bleedMm} 
-                        width={size.widthMm} 
-                        height={size.heightMm} 
-                        fill="none" 
-                        stroke="rgba(128,128,128,0.5)" 
-                        strokeWidth="0.25"
-                        strokeDasharray="30, 30"
-                    />
+                    {size.bleedMm > 0 && (
+                        <rect 
+                            x={size.bleedMm} 
+                            y={size.bleedMm} 
+                            width={Number(size.widthMm) || 0} 
+                            height={Number(size.heightMm) || 0} 
+                            fill="none" 
+                            stroke="rgba(128,128,128,0.5)" 
+                            strokeWidth="0.25"
+                            strokeDasharray="30, 30"
+                        />
+                    )}
                 </>
             ) : (
                 <text x={cx} y={totalH / 2} fill={colors.fg} fontSize={totalW * 0.05} textAnchor="middle">
