@@ -21,7 +21,7 @@ export const exportToPdf = async (svgElement: SVGSVGElement, widthMm: number, he
         { h: '#ffe600', rgb: [255, 230, 0], cmyk: [0, 0.06, 1.0, 0] },     // Yellow: M=6%, Y=100%
         { h: '#e31837', rgb: [227, 24, 55], cmyk: [0, 1.0, 1.0, 0] },      // Red: M=100%, Y=100%
         { h: '#0033a0', rgb: [0, 51, 160], cmyk: [1.0, 0.8, 0, 0] },       // Blue: C=100%, M=80%
-        { h: '#000000', rgb: [0, 0, 0],     cmyk: [0, 0, 0, 1.0] },         // True Black
+        { h: '#000000', rgb: [0, 0, 0],     cmyk: [0.95, 0.95, 0.45, 0.95] }, // Rich Black: C=95 M=95 Y=45 K=95
         { h: '#ffffff', rgb: [255, 255, 255], cmyk: [0, 0, 0, 0] },     // White
         { h: '#808080', rgb: [128, 128, 128], cmyk: [0, 0, 0, 0.5] }     // Gray
     ];
