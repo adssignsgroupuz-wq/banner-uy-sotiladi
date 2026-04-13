@@ -17,13 +17,26 @@ export const Sidebar: React.FC = () => {
         customText, setCustomText 
     } = useBannerStore();
 
+    const [isExporting, setIsExporting] = React.useState(false);
+
     const handleExportPdf = async () => {
         const svg = document.getElementById('banner-svg') as unknown as SVGSVGElement;
-        if (svg) {
-            const totalW = (Number(size.widthMm) || 0) + size.bleedMm * 2;
-            const totalH = (Number(size.heightMm) || 0) + size.bleedMm * 2;
-            const filename = `${totalW}x${totalH}mm.pdf`;
-            await exportToPdf(svg, totalW, totalH, filename);
+        if (svg && !isExporting) {
+            setIsExporting(true);
+            try {
+                // Kichik pauza (main threadni bo'shatib, React state ni chizishi u-n)
+                await new Promise(res => setTimeout(res, 50)); 
+                
+                const totalW = (Number(size.widthMm) || 0) + size.bleedMm * 2;
+                const totalH = (Number(size.heightMm) || 0) + size.bleedMm * 2;
+                const filename = `${totalW}x${totalH}mm.pdf`;
+                await exportToPdf(svg, totalW, totalH, filename);
+            } catch (e) {
+                console.error(e);
+                alert("Faylni yuklashda muammo chiqdi. Qaytadan urinib ko'ring.");
+            } finally {
+                setIsExporting(false);
+            }
         }
     };
 
@@ -173,8 +186,13 @@ export const Sidebar: React.FC = () => {
             </div>
 
             <div className="export-actions">
-                <button className="btn-primary" onClick={handleExportPdf}>
-                    Download Print-Ready PDF
+                <button 
+                    className="btn-primary" 
+                    onClick={handleExportPdf} 
+                    disabled={isExporting}
+                    style={{ opacity: isExporting ? 0.7 : 1, cursor: isExporting ? 'wait' : 'pointer' }}
+                >
+                    {isExporting ? 'Fayl tayyorlanmoqda (Kuting)...' : 'Download Print-Ready PDF'}
                 </button>
             </div>
             

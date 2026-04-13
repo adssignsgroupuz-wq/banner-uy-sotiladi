@@ -68,7 +68,19 @@ export const exportToPdf = async (svgElement: SVGSVGElement, widthMm: number, he
         height: heightMm
     });
 
-    doc.save(filename);
+    const pdfBlob = doc.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    
+    const downloadLink = document.createElement("a");
+    downloadLink.href = pdfUrl;
+    downloadLink.download = filename;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    
+    setTimeout(() => {
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(pdfUrl);
+    }, 200);
 };
 
 export const exportToSvg = (svgElement: SVGSVGElement, filename = 'uy-sotiladi-banner.svg') => {
