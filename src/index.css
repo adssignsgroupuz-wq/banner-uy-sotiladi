@@ -133,6 +133,7 @@ input:focus, select:focus {
 .template-btn.yellow { background-color: var(--yellow-bg); }
 .template-btn.red { background-color: var(--red-bg); }
 .template-btn.blue { background-color: var(--blue-bg); }
+.template-btn.white { background-color: #ffffff; border: 1px solid var(--border-color); }
 
 .template-btn:hover {
   transform: translateY(-2px);
@@ -157,6 +158,7 @@ input:focus, select:focus {
   text-shadow: 0 1px 3px rgba(0,0,0,0.5);
 }
 .template-btn.yellow.active::after { color: #000; text-shadow: none; }
+.template-btn.white.active::after { color: var(--red-bg); text-shadow: none; }
 
 .form-divider {
   height: 1px;

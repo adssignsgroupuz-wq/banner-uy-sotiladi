@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type TemplateMode = 'yellow-black' | 'red-white' | 'blue-white';
+export type TemplateMode = 'yellow-black' | 'red-white' | 'blue-white' | 'white-red';
 
 export type FontFamily = 'roboto' | 'impact';
 

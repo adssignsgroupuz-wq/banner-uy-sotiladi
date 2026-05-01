@@ -15,6 +15,7 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
         switch (template) {
             case 'red-white': return { bg: '#e31837', fg: '#ffffff' };
             case 'blue-white': return { bg: '#0033a0', fg: '#ffffff' };
+            case 'white-red': return { bg: '#ffffff', fg: '#e31837' };
             case 'yellow-black':
             default: return { bg: '#ffe600', fg: '#000000' };
         }

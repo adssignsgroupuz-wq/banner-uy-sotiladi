@@ -69,7 +69,7 @@ export const Sidebar: React.FC = () => {
             <div className="form-group">
                 <label>2. Dizayn (Template)</label>
                 <div className="template-grid">
-                    {(['yellow-black', 'red-white', 'blue-white'] as TemplateMode[]).map((t) => (
+                    {(['yellow-black', 'red-white', 'blue-white', 'white-red'] as TemplateMode[]).map((t) => (
                         <button 
                             key={t}
                             className={`template-btn ${t.split('-')[0]} ${template === t ? 'active' : ''}`}
