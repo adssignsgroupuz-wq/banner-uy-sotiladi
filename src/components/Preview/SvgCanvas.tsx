@@ -177,7 +177,15 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
                 aspectRatio: `${totalW} / ${totalH}`
             }}
         >
-            <rect x="0" y="0" width={totalW} height={totalH} fill={colors.bg} />
+            <rect 
+                x="0" 
+                y="0" 
+                width={totalW} 
+                height={totalH} 
+                fill={colors.bg} 
+                stroke={template === 'white-red' ? '#000000' : 'none'}
+                strokeWidth={template === 'white-red' ? 0.1 : 0}
+            />
 
             {font ? (
                 <>
