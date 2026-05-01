@@ -184,7 +184,7 @@ export const SvgCanvas: React.FC<{ id?: string }> = ({ id = 'banner-svg' }) => {
                 height={totalH} 
                 fill={colors.bg} 
                 stroke={template === 'white-red' ? '#000000' : 'none'}
-                strokeWidth={template === 'white-red' ? 0.1 : 0}
+                strokeWidth={template === 'white-red' ? 0.025 : 0}
             />
 
             {font ? (
