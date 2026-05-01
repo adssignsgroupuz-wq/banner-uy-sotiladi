@@ -33,7 +33,7 @@ export const useBannerStore = create<BannerState>((set) => ({
     eyelets: { horizontal: 0, vertical: 0 },
     template: 'yellow-black',
     fontFamily: 'impact',
-    mainTitle: 'UY SOTILADI',
+    mainTitle: 'ПРОДАЁТСЯ',
     phoneNumber: '+998 90 123 45 67',
     phoneNumber2: '',
     rooms: '4 xona',

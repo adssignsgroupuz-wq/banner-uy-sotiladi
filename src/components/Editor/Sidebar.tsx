@@ -99,7 +99,7 @@ export const Sidebar: React.FC = () => {
                     type="text" 
                     value={mainTitle} 
                     onChange={(e) => setMainTitle(e.target.value)} 
-                    placeholder="Masalan: UY SOTILADI"
+                    placeholder="Masalan: ПРОДАЁТСЯ"
                     style={{ fontSize: '1.2rem', fontWeight: 'bold' }}
                 />
             </div>
